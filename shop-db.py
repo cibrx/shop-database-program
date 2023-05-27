@@ -1,5 +1,5 @@
 import sqlite3
-menu="""-------------------------\nHoşgeldinz,\n1-Veri Ekle\n2-Veri Cek\n3-Programdan cik\n-------------------------"""
+menu="""-------------------------\nHoşgeldinz,\n1-Veri Ekle\n2-Veri Cek\n3-En pahali Ve En Ucuz Urunleri Getir\n4-Programdan cik\n-------------------------"""
 connect=sqlite3.connect("database.db")
 cursor=connect.cursor()
 try:
@@ -24,9 +24,27 @@ while True:
     if secim == 2:
         run="SELECT * FROM urunler"
         cursor.execute(run)
-        cikti=cursor.fetchall()  
+        cikti=cursor.fetchall()
+        toplam=0
+        list=[]
         for i in cikti:
-            print("Urun:"+i[0]+" Fiyat:"+i[1]) 
+            toplam+=int(i[1])
+            print("Urun:"+i[0]+" Fiyat:"+i[1])
+            list.append(int(i[1]))
+        print("Toplam fiyat :==: ",int(toplam))
 
     if secim == 3:
-        break    
+        run="SELECT * FROM urunler"
+        cursor.execute(run)
+        cikti=cursor.fetchall()
+        toplam=0
+        list=[]
+        for i in cikti:
+            toplam+=int(i[1])
+            list.append(int(i[1]))
+
+        print("kucuk:", min(list))
+        print("buyuk:",max(list))
+
+    if secim == 4:
+        break
